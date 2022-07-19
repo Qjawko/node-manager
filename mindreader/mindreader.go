@@ -174,7 +174,7 @@ func RunMindReaderPlugin(
 
 func NewMindReaderPlugin(
 	archiver Archiver,
-	blockServer *blockstream.Server,
+	blockServer Server,
 	consoleReaderFactory ConsolerReaderFactory,
 	consoleReaderTransformer ConsoleReaderBlockTransformer,
 	continuityChecker ContinuityChecker,
