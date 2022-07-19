@@ -43,6 +43,10 @@ type ConsolerReaderFactory func(reader io.Reader) (ConsolerReader, error)
 // turns it into a `bstream.Block` that is able to flow in block streams.
 type ConsoleReaderBlockTransformer func(obj interface{}) (*bstream.Block, error)
 
+type Server interface {
+	PushBlock(block *bstream.Block) error
+}
+
 type MindReaderPlugin struct {
 	*shutter.Shutter
 
@@ -55,7 +59,7 @@ type MindReaderPlugin struct {
 	gator               Gator
 	stopAtBlockNum      uint64
 	channelCapacity     int
-	blockServer         *blockstream.Server
+	blockServer         Server
 
 	headBlockUpdateFunc manageos.HeadBlockUpdater
 
