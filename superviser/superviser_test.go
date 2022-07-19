@@ -18,7 +18,7 @@ import (
 	"testing"
 	"time"
 
-	logplugin "github.com/dfuse-io/manageos/log_plugin"
+	logplugin "github.com/qjawko/node-manager/log_plugin"
 	"github.com/stretchr/testify/assert"
 )
 

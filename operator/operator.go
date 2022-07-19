@@ -18,6 +18,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/dfuse-io/shutter"
 	"net/http"
 	"net/url"
 	"sort"
@@ -26,9 +27,8 @@ import (
 	"time"
 
 	"github.com/dfuse-io/dstore"
-	"github.com/dfuse-io/manageos"
-	"github.com/dfuse-io/manageos/profiler"
-	"github.com/dfuse-io/shutter"
+	"github.com/qjawko/node-manager"
+	"github.com/qjawko/node-manager/profiler"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
 )

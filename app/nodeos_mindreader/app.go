@@ -21,18 +21,16 @@ import (
 	"os"
 	"time"
 
-	"github.com/dfuse-io/dmetrics"
-	"github.com/dfuse-io/manageos"
-
 	"github.com/dfuse-io/dgrpc"
-	"github.com/dfuse-io/manageos/metrics"
-	"github.com/dfuse-io/manageos/mindreader"
-	nodeosMindreader "github.com/dfuse-io/manageos/mindreader/nodeos"
-	"github.com/dfuse-io/manageos/operator"
-	"github.com/dfuse-io/manageos/profiler"
-	"github.com/dfuse-io/manageos/superviser/nodeos"
+	"github.com/dfuse-io/dmetrics"
 	"github.com/dfuse-io/shutter"
 	"github.com/gorilla/mux"
+	"github.com/qjawko/node-manager/metrics"
+	"github.com/qjawko/node-manager/mindreader"
+	nodeosMindreader "github.com/qjawko/node-manager/mindreader/nodeos"
+	"github.com/qjawko/node-manager/operator"
+	"github.com/qjawko/node-manager/profiler"
+	"github.com/qjawko/node-manager/superviser/nodeos"
 	"go.uber.org/zap"
 )
 

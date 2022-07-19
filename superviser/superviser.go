@@ -15,11 +15,11 @@
 package superviser
 
 import (
+	manageos "github.com/qjawko/node-manager"
 	"sync"
 
 	"github.com/ShinyTrinkets/overseer"
-	"github.com/dfuse-io/manageos"
-	logplugin "github.com/dfuse-io/manageos/log_plugin"
+	logplugin "github.com/qjawko/node-manager/log_plugin"
 	"go.uber.org/zap"
 )
 

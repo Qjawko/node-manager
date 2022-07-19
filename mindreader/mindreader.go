@@ -16,12 +16,11 @@ package mindreader
 
 import (
 	"fmt"
+	manageos "github.com/qjawko/node-manager"
 	"io"
 	"os"
 	"path/filepath"
 	"time"
-
-	"github.com/dfuse-io/manageos"
 
 	"github.com/dfuse-io/bstream"
 	"github.com/dfuse-io/bstream/blockstream"
