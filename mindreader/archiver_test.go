@@ -118,7 +118,7 @@ func TestMindReaderPlugin_StopAtBlockNumReached(t *testing.T) {
 	}
 
 	// Validate actually read block
-	assert.True(t, len(s.blocks) >= 1) // moderate requirement, race condition can make it pass more blocks
+	assert.True(t, len(s.blocks) >= 1) // moderate requirement, race condition can make it Pass more blocks
 	assert.Equal(t, "00000001a", s.blocks[0].ID())
 }
 
@@ -126,7 +126,7 @@ func TestNewLocalStore(t *testing.T) {
 	localArchiveStore, err := dstore.NewDBinStore("/tmp/mr_dest")
 	require.NoError(t, err)
 	archiver := testNewArchiver("/tmp/mr_test", localArchiveStore)
-	err = archiver.init()
+	err = archiver.Init()
 	require.NoError(t, err)
 
 	mindReader, err := testNewMindReaderPlugin(archiver, NewBlockNumberGator(0), 0)
@@ -160,7 +160,7 @@ func TestNewGSStore(t *testing.T) {
 
 	archiveStore, err := dstore.NewDBinStore(path)
 	archiver := testNewArchiver("/tmp/mr_test/", archiveStore)
-	err = archiver.init()
+	err = archiver.Init()
 	require.NoError(t, err)
 
 	mindReader, err := testNewMindReaderPlugin(archiver, NewBlockNumberGator(1), 0)

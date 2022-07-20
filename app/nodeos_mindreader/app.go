@@ -17,6 +17,7 @@ package nodeos_mindreader
 import (
 	"context"
 	"fmt"
+	manageos "github.com/qjawko/node-manager"
 	"net/http"
 	"os"
 	"time"

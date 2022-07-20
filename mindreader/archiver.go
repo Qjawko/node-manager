@@ -36,10 +36,10 @@ type BlockMarshaller func(block *bstream.Block) ([]byte, error)
 type BlockFileNamer func(block *bstream.Block) string
 
 type Archiver interface {
-	init() error
-	storeBlock(block *bstream.Block) error
-	uploadFiles() error
-	cleanup()
+	Init() error
+	StoreBlock(block *bstream.Block) error
+	UploadFiles() error
+	Cleanup()
 }
 
 type OneblockArchiver struct {
@@ -67,12 +67,12 @@ func NewOneblockArchiver(
 	}
 }
 
-// cleanup assumes that no more 'storeBlock' command is coming
-func (s *OneblockArchiver) cleanup() {
-	s.uploadFiles()
+// cleanup assumes that no more 'StoreBlock' command is coming
+func (s *OneblockArchiver) Cleanup() {
+	s.UploadFiles()
 }
 
-func (s *OneblockArchiver) init() error {
+func (s *OneblockArchiver) Init() error {
 	if err := os.MkdirAll(s.workDir, 0755); err != nil {
 		return fmt.Errorf("mkdir work folder: %s", err)
 	}
@@ -80,7 +80,7 @@ func (s *OneblockArchiver) init() error {
 	return nil
 }
 
-func (s *OneblockArchiver) storeBlock(block *bstream.Block) error {
+func (s *OneblockArchiver) StoreBlock(block *bstream.Block) error {
 	fileName := s.blockFileNamer(block)
 
 	// Store the actual file using multiple folders instead of a single one.
@@ -126,7 +126,7 @@ func (s *OneblockArchiver) storeBlock(block *bstream.Block) error {
 	return nil
 }
 
-func (s *OneblockArchiver) uploadFiles() error {
+func (s *OneblockArchiver) UploadFiles() error {
 	s.uploadMutex.Lock()
 	defer s.uploadMutex.Unlock()
 	filesToUpload, err := findFilesToUpload(s.workDir)

@@ -41,14 +41,14 @@ func NewTestStore() *TestStore {
 	}
 }
 
-func (s *TestStore) init() error {
+func (s *TestStore) Init() error {
 	return nil
 }
 
-func (s *TestStore) cleanup() {
+func (s *TestStore) Cleanup() {
 }
 
-func (s *TestStore) storeBlock(block *bstream.Block) error {
+func (s *TestStore) StoreBlock(block *bstream.Block) error {
 	s.blocks = append(s.blocks, block)
 	s.receivedBlock <- block
 	return nil
@@ -67,6 +67,6 @@ func (s *TestStore) consumeBlockFromChannel(t *testing.T, timeout time.Duration)
 	return nil
 }
 
-func (s *TestStore) uploadFiles() error {
+func (s *TestStore) UploadFiles() error {
 	return nil
 }

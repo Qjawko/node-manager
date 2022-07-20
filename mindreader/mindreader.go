@@ -147,8 +147,8 @@ func RunMindReaderPlugin(
 		archiver = NewOneblockArchiver(workingDirectory, archiveStore, blockFileNamer, bstream.GetBlockWriterFactory, archiverStopBlockNum)
 	}
 
-	if err := archiver.init(); err != nil {
-		return nil, fmt.Errorf("failed to init archiver: %s", err)
+	if err := archiver.Init(); err != nil {
+		return nil, fmt.Errorf("failed to Init archiver: %s", err)
 	}
 
 	mindReaderPlugin, err := NewMindReaderPlugin(archiver, blockServer, consoleReaderFactory, consoleReaderTransformer, continuityChecker, gator, stopBlockNum, channelCapacity, headBlockUpdateFunc)
@@ -233,11 +233,11 @@ func (p *MindReaderPlugin) ReadFlow() {
 
 func (p *MindReaderPlugin) alwaysUploadFiles() {
 	for {
-		if p.IsTerminating() { // the uploadFiles will be called again in 'cleanup()', we can leave here early
+		if p.IsTerminating() { // the UploadFiles will be called again in 'Cleanup()', we can leave here early
 			return
 		}
 
-		if err := p.archiver.uploadFiles(); err != nil {
+		if err := p.archiver.UploadFiles(); err != nil {
 			zlog.Warn("failed to upload stale files", zap.Error(err))
 		}
 
@@ -252,8 +252,8 @@ func (p *MindReaderPlugin) alwaysUploadFiles() {
 // consumeReadFlow is the one function blocking termination until consumption/writeBlock/upload is done
 func (p *MindReaderPlugin) consumeReadFlow(blocks <-chan *bstream.Block) {
 	defer func() {
-		p.archiver.cleanup()
-		zlog.Debug("archiver cleanup done")
+		p.archiver.Cleanup()
+		zlog.Debug("archiver Cleanup done")
 		close(p.consumeReadFlowDone)
 	}()
 
@@ -271,10 +271,10 @@ func (p *MindReaderPlugin) consumeReadFlow(blocks <-chan *bstream.Block) {
 			zlog.Info("will shutdown when block count == 0", zap.Int("block_count", len(blocks)))
 
 		case block := <-blocks:
-			err := p.archiver.storeBlock(block)
+			err := p.archiver.StoreBlock(block)
 			if err != nil {
 				zlog.Error("failed storing block in archiver", zap.Error(err))
-				p.Shutdown(fmt.Errorf("archiver.storeBlock failed: %s", err))
+				p.Shutdown(fmt.Errorf("archiver.StoreBlock failed: %s", err))
 				return
 			}
 
@@ -309,7 +309,7 @@ func (p *MindReaderPlugin) readOneMessage(blocks chan<- *bstream.Block) error {
 		return fmt.Errorf("unable to transform console read obj to bstream.Block: %s", err)
 	}
 
-	if !p.gator.pass(block) {
+	if !p.gator.Pass(block) {
 		return nil
 	}
 

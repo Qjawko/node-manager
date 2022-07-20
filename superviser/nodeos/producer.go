@@ -17,6 +17,7 @@ package nodeos
 import (
 	"context"
 	"fmt"
+	manageos "github.com/qjawko/node-manager"
 	"regexp"
 	"strconv"
 	"time"

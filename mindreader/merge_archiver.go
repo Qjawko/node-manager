@@ -65,9 +65,9 @@ func WithOverflowArchiver(archiver Archiver) MergeArchiverOption {
 	}
 }
 
-func (m *MergeArchiver) init() error {
+func (m *MergeArchiver) Init() error {
 	if m.overflowArchiver != nil {
-		return m.overflowArchiver.init()
+		return m.overflowArchiver.Init()
 	}
 	return nil
 }
@@ -82,15 +82,15 @@ func (m *MergeArchiver) newBuffer() error {
 	return nil
 }
 
-// cleanup assumes that no more 'storeBlock' command is coming
-func (m *MergeArchiver) cleanup() {
+// cleanup assumes that no more 'StoreBlock' command is coming
+func (m *MergeArchiver) Cleanup() {
 	m.eg.Wait()
 	if m.overflowArchiver != nil {
-		m.overflowArchiver.cleanup()
+		m.overflowArchiver.Cleanup()
 	}
 }
 
-func (m *MergeArchiver) storeBlock(block *bstream.Block) error {
+func (m *MergeArchiver) StoreBlock(block *bstream.Block) error {
 	if m.buffer == nil && block.Num() < 3 {
 		// Special case the beginning of the EOS chain
 
@@ -117,7 +117,7 @@ func (m *MergeArchiver) storeBlock(block *bstream.Block) error {
 
 	if m.stopBlock != 0 && block.Num() >= m.stopBlock {
 		if m.overflowArchiver != nil {
-			return m.overflowArchiver.storeBlock(block)
+			return m.overflowArchiver.StoreBlock(block)
 		}
 		zlog.Debug("ignoring block after stop_block because no passthrough is set", zap.Uint64("block_num", block.Num()))
 		return nil
@@ -160,7 +160,7 @@ func (m *MergeArchiver) storeBlock(block *bstream.Block) error {
 	return nil
 }
 
-// uploadFiles does nothing here, it's managed by `storeBlock` when needed
-func (m *MergeArchiver) uploadFiles() error {
+// uploadFiles does nothing here, it's managed by `StoreBlock` when needed
+func (m *MergeArchiver) UploadFiles() error {
 	return nil
 }

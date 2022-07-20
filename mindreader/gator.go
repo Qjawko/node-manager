@@ -21,7 +21,7 @@ import (
 )
 
 type Gator interface {
-	pass(block *bstream.Block) bool
+	Pass(block *bstream.Block) bool
 }
 
 type TimeThresholdGator struct {
@@ -35,7 +35,7 @@ func NewTimeThresholdGatorr(threshold time.Duration) *TimeThresholdGator {
 	}
 }
 
-func (g *TimeThresholdGator) pass(block *bstream.Block) bool {
+func (g *TimeThresholdGator) Pass(block *bstream.Block) bool {
 	if g.passed {
 		return true
 	}
@@ -55,7 +55,7 @@ func NewBlockNumberGator(blockNum uint64) *BlockNumberGator {
 	}
 }
 
-func (g *BlockNumberGator) pass(block *bstream.Block) bool {
+func (g *BlockNumberGator) Pass(block *bstream.Block) bool {
 	if g.passed {
 		return true
 	}

@@ -16,6 +16,7 @@ package nodeos
 
 import (
 	"fmt"
+	manageos "github.com/qjawko/node-manager"
 	"os"
 	"path"
 	"path/filepath"
